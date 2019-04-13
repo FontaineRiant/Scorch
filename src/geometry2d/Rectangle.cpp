@@ -61,3 +61,7 @@ Rectangle Rectangle::expand_to_aspect_ratio(double aspect_ratio) const {
         return Rectangle(center, width, height);
     }
 }
+
+Rectangle::Rectangle(const Rectangle& other) : height(height), width(width), center(center) {
+
+}

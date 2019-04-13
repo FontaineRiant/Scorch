@@ -11,6 +11,7 @@
 class Rectangle {
 public:
     Rectangle(const Point& center, double width, double height);
+    Rectangle(const Rectangle& other);
 
     /**
      * @return x coordinate for the left border

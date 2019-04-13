@@ -10,7 +10,7 @@
 
 class Palette {
 public:
-    const Color color_for_index(double index);
+    const Color color_for_index(double index) const;
     virtual ~Palette() = default;
 
 protected:

@@ -5,7 +5,7 @@
 #include <cmath>
 #include "Palette.h"
 
-const Color Palette::color_for_index(double index) {
+const Color Palette::color_for_index(double index) const {
 
     // Agrandit l'index proportionnellement la taille de la palette. Ainsi chaque couleur non-mélangée
     // correspond à un nombre entier. Stock cet index dans la variable indexn.
