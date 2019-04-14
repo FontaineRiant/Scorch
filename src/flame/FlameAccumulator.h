@@ -11,8 +11,8 @@
 #include "../geometry2d/Rectangle.h"
 
 typedef struct {
-    size_t width;
-    size_t height;
+    unsigned int width;
+    unsigned int height;
 } dim2;
 
 class FlameAccumulator {
@@ -21,13 +21,13 @@ public:
     class Builder {
     private:
         Rectangle frame;
-        size_t width;
-        size_t height;
+        unsigned int width;
+        unsigned int height;
         unsigned int **is_hit;
         double **color_index;
 
     public:
-        Builder(const Rectangle &frame, size_t width, size_t height);
+        Builder(const Rectangle &frame, unsigned int width, unsigned int height);
 
         void hit(const Point &p, double index);
 
@@ -38,12 +38,12 @@ public:
     /**
      * @return x dimension of the accumulator
      */
-    size_t get_width() const;
+    unsigned int get_width() const;
 
     /**
      * @return y dimension of the accumulator
      */
-    size_t get_height() const;
+    unsigned int get_height() const;
 
     /**
      * computes the light intensity of a given pixel
@@ -51,7 +51,7 @@ public:
      * @param y
      * @return brightness value
      */
-    double intensity(size_t x, size_t y) const;
+    double intensity(unsigned int x, unsigned int y) const;
 
     /**
      * computes the color of a pixel
@@ -61,7 +61,7 @@ public:
      * @param y
      * @return pixel color as rgb (r g and b are between 0 and 1)
      */
-    const Color color(const Palette &palette, const Color &background, size_t x, size_t y) const;
+    const Color color(const Palette &palette, const Color &background, unsigned int x, unsigned int y) const;
 
 private:
     FlameAccumulator(dim2 dims, unsigned int **hit_count,

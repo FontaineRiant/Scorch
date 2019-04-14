@@ -37,7 +37,7 @@ AffineTransformation AffineTransformation::shear_y(double sy) {
     return AffineTransformation(1, 0, 0, sy, 1, 0);
 }
 
-const Point AffineTransformation::transform_point(const Point &p) const {
+Point AffineTransformation::transform_point(const Point &p) const {
     return Point(p.get_x() * a + p.get_y() * b + c, p.get_x() * d + p.get_y() * e + f);
 }
 

@@ -9,7 +9,7 @@
 #include "Palette.h"
 
 class RandomPalette : public Palette {
-    RandomPalette(size_t nColors);
+    RandomPalette(unsigned int nColors);
 };
 
 

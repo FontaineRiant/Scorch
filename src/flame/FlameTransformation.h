@@ -32,11 +32,11 @@ public:
      * @param n_weights
      */
     FlameTransformation(const AffineTransformation& aff_trans, double weights[]);
-    const Point transform_point(const Point& p) const override;
+    Point transform_point(const Point& p) const override;
 
 private:
     AffineTransformation aff_trans;
-    double weights[];
+    double weights[6];
 };
 
 

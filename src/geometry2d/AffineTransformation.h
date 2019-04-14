@@ -20,7 +20,7 @@ public:
     static AffineTransformation shear_x(double sx);
     static AffineTransformation shear_y(double sy);
 
-    const Point transform_point(const Point& p) const;
+    Point transform_point(const Point& p) const override;
     double get_translation_x() const;
     double get_translation_y() const;
     const AffineTransformation compose_with(const AffineTransformation& that) const;

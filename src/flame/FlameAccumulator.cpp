@@ -14,8 +14,8 @@ FlameAccumulator::FlameAccumulator(dim2 dims, unsigned int **hit_count,
     this->dims.height = dims.height;
     this->max_hit_count = 0;
 
-    for (size_t i = 0; i < dims.height; i++) {
-        for (size_t j = 0; j < dims.width; j++) {
+    for (unsigned int i = 0; i < dims.height; i++) {
+        for (unsigned int j = 0; j < dims.width; j++) {
             this->color_index_sum[i][j] = color_index_sum[i][j];
             this->hit_count[i][j] = hit_count[i][j];
 
@@ -26,7 +26,7 @@ FlameAccumulator::FlameAccumulator(dim2 dims, unsigned int **hit_count,
     }
 }
 
-double FlameAccumulator::intensity(size_t x, size_t y) const {
+double FlameAccumulator::intensity(unsigned int x, unsigned int y) const {
     if (x < 0 || x >= dims.height) {
         throw std::out_of_range("FlameAccumulator::intensity : x out of range");
     }
@@ -38,15 +38,15 @@ double FlameAccumulator::intensity(size_t x, size_t y) const {
     return log(hit_count[x][y] + 1) / log(max_hit_count + 1);
 }
 
-size_t FlameAccumulator::get_width() const {
+unsigned int FlameAccumulator::get_width() const {
     return dims.width;
 }
 
-size_t FlameAccumulator::get_height() const {
+unsigned int FlameAccumulator::get_height() const {
     return dims.height;
 }
 
-const Color FlameAccumulator::color(const Palette &palette, const Color &background, size_t x, size_t y) const {
+const Color FlameAccumulator::color(const Palette &palette, const Color &background, unsigned int x, unsigned int y) const {
     if (x < 0 || x >= dims.height) {
         throw std::out_of_range("FlameAccumulator::intensity : x out of range");
     }
@@ -63,7 +63,7 @@ const Color FlameAccumulator::color(const Palette &palette, const Color &backgro
     }
 }
 
-FlameAccumulator::Builder::Builder(const Rectangle &frame, size_t width, size_t height)
+FlameAccumulator::Builder::Builder(const Rectangle &frame, unsigned int width, unsigned int height)
         : height(height), width(width), frame(frame) {
     if (width < 0 || height < 0) {
         throw std::invalid_argument("FlameAccumulator::Builder : height and width must be strictly positive");
@@ -75,8 +75,8 @@ FlameAccumulator::Builder::Builder(const Rectangle &frame, size_t width, size_t 
 
 void FlameAccumulator::Builder::hit(const Point &p, double index) {
     if(frame.contains(p)) {
-        size_t x = (size_t) ((p.get_x() - frame.left()) / (frame.get_width() / width));
-        size_t y = (size_t) ((p.get_y() - frame.bottom()) / (frame.get_height() / height));
+        unsigned int x = (unsigned int) ((p.get_x() - frame.left()) / (frame.get_width() / width));
+        unsigned int y = (unsigned int) ((p.get_y() - frame.bottom()) / (frame.get_height() / height));
 
         is_hit[x][y]++;
         color_index[x][y] += index;

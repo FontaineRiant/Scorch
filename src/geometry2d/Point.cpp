@@ -24,3 +24,7 @@ double Point::theta() const {
 double Point::r() const {
     return sqrt(x * x + y * y);
 }
+
+Point::Point(const Point &other) : x(other.x), y(other.y) {
+
+}

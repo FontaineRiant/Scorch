@@ -20,11 +20,11 @@ public:
     static std::vector<Variation*> ALL_VARIATIONS;
 
 protected:
-    Variation(size_t index, std::string name);
+    Variation(unsigned int index, std::string name);
 
 private:
     const std::string name;
-    const size_t index;
+    const unsigned int index;
 };
 
 

@@ -4,10 +4,10 @@
 
 #include <stdexcept>
 #include <random>
-#include "time.h"
+#include <ctime>
 #include "RandomPalette.h"
 
-RandomPalette::RandomPalette(size_t nColors) {
+RandomPalette::RandomPalette(unsigned int nColors) {
     if (nColors < 2) {
         throw std::invalid_argument("new palette must contain at least 2 colors");
     }
@@ -15,7 +15,7 @@ RandomPalette::RandomPalette(size_t nColors) {
     std::uniform_real_distribution<double> unif(0.0, 1.0);
     std::default_random_engine re(time(nullptr));
 
-    for (size_t i = 0; i < nColors; i++) {
-        this->palette.push_back(Color(unif(re), unif(re), unif(re)));
+    for (unsigned int i = 0; i < nColors; i++) {
+        this->palette.emplace_back(unif(re), unif(re), unif(re));
     }
 }

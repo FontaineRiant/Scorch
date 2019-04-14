@@ -10,7 +10,7 @@
 
 class Transformation {
 public:
-    virtual const Point transform_point(const Point& p) const = 0;
+    virtual Point transform_point(const Point& p) const = 0;
     virtual ~Transformation() = default;
 };
 

@@ -6,7 +6,7 @@
 
 #include "Variation.h"
 
-Variation::Variation(size_t index, std::string  name) : index(index), name(std::move(name)) {
+Variation::Variation(unsigned int index, std::string  name) : index(index), name(std::move(name)) {
 
 }
 
@@ -22,7 +22,7 @@ int Variation::get_index() const {
 
 class LinearVariation : public Variation {
 public:
-    const Point transform_point(const Point &p) const override {
+    Point transform_point(const Point &p) const override {
         return Point(p.get_x(), p.get_y());
     }
     LinearVariation() : Variation(0, "Linear") {}
@@ -30,7 +30,7 @@ public:
 
 class SinusoidalVariation : public Variation {
 public:
-    const Point transform_point(const Point &p) const override {
+    Point transform_point(const Point &p) const override {
         return Point(sin(p.get_x()), sin(p.get_y()));
     }
 
@@ -39,7 +39,7 @@ public:
 
 class SphericalVariation : public Variation {
 public:
-    const Point transform_point(const Point &p) const override {
+    Point transform_point(const Point &p) const override {
         return Point(p.get_x() / (p.r() * p.r()), p.get_y() / (p.r() * p.r()));
     }
 
@@ -48,7 +48,7 @@ public:
 
 class SwirlVariation : public Variation {
 public:
-    const Point transform_point(const Point &p) const override {
+    Point transform_point(const Point &p) const override {
         double temp_sin = sin(p.r() * p.r());
         double temp_cos = cos(p.r() * p.r());
         return Point((p.get_x() * temp_sin - p.get_y() * temp_cos),
@@ -61,7 +61,7 @@ public:
 
 class HorseshoeVariation : public Variation {
 public:
-    const Point transform_point(const Point &p) const override {
+    Point transform_point(const Point &p) const override {
         return Point((p.get_x() - p.get_y()) * (p.get_x() + p.get_y()) / p.r(),
                      2 * p.get_x() * p.get_y() / p.r());
     }
@@ -71,7 +71,7 @@ public:
 
 class BubbleVariation : public Variation {
 public:
-    const Point transform_point(const Point &p) const override {
+    Point transform_point(const Point &p) const override {
         return Point((4 * p.get_x()) / (p.r() * p.r() + 4), (4 * p.get_y()) / (p.r() * p.r() + 4));
     }
 
