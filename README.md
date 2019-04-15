@@ -1,9 +1,8 @@
 # Scorch
 Flame fractal image generator
 
-Status : unfinished, not functionnal
+Status : bugged
 
-# Description
 ![](https://i.imgur.com/8X9rPrY.jpg)
 
 This project started as a school excercise in Java. Years later, I rewrote it in C++ so I could have a basis for future optimizations as a pet project.
