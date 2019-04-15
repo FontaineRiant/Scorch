@@ -8,14 +8,14 @@
 
 FlameAccumulator::FlameAccumulator(dim2 dims, unsigned int **hit_count,
                                    double **color_index_sum) {
-    this->hit_count[dims.height][dims.width];
-    this->color_index_sum[dims.height][dims.width];
+    this->hit_count[dims.width][dims.height];
+    this->color_index_sum[dims.width][dims.height];
     this->dims.width = dims.width;
     this->dims.height = dims.height;
     this->max_hit_count = 0;
 
-    for (unsigned int i = 0; i < dims.height; i++) {
-        for (unsigned int j = 0; j < dims.width; j++) {
+    for (unsigned int i = 0; i < dims.width; i++) {
+        for (unsigned int j = 0; j < dims.height; j++) {
             this->color_index_sum[i][j] = color_index_sum[i][j];
             this->hit_count[i][j] = hit_count[i][j];
 
@@ -27,11 +27,11 @@ FlameAccumulator::FlameAccumulator(dim2 dims, unsigned int **hit_count,
 }
 
 double FlameAccumulator::intensity(unsigned int x, unsigned int y) const {
-    if (x < 0 || x >= dims.height) {
+    if (x < 0 || x >= dims.width) {
         throw std::out_of_range("FlameAccumulator::intensity : x out of range");
     }
 
-    if (y < 0 || y >= dims.width) {
+    if (y < 0 || y >= dims.height) {
         throw std::out_of_range("FlameAccumulator::intensity : y out of range");
     }
 
@@ -47,11 +47,11 @@ unsigned int FlameAccumulator::get_height() const {
 }
 
 const Color FlameAccumulator::color(const Palette &palette, const Color &background, unsigned int x, unsigned int y) const {
-    if (x < 0 || x >= dims.height) {
+    if (x < 0 || x >= dims.width) {
         throw std::out_of_range("FlameAccumulator::intensity : x out of range");
     }
 
-    if (y < 0 || y >= dims.width) {
+    if (y < 0 || y >= dims.height) {
         throw std::out_of_range("FlameAccumulator::intensity : y out of range");
     }
 
@@ -69,7 +69,11 @@ FlameAccumulator::Builder::Builder(const Rectangle &frame, unsigned int width, u
         throw std::invalid_argument("FlameAccumulator::Builder : height and width must be strictly positive");
     }
 
-    is_hit[width][height];
+    is_hit = new unsigned int*[width];
+    for(unsigned int i = 0; i < width; i++) {
+        is_hit[i] = new unsigned int[height];
+    }
+
     color_index[width][height];
 }
 

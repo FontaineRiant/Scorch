@@ -12,7 +12,7 @@ Flame::Flame(const std::vector<FlameTransformation> &transformations) {
     }
 }
 
-FlameAccumulator Flame::compute(const Rectangle &frame, unsigned int width, unsigned int height) const {
+FlameAccumulator Flame::compute(const Rectangle &frame, unsigned int width, unsigned int height, unsigned int density) const {
     Point* p = new Point(0, 0);
 
     std::uniform_int_distribution<unsigned int> unif(0, list.size() - 1);
@@ -21,7 +21,8 @@ FlameAccumulator Flame::compute(const Rectangle &frame, unsigned int width, unsi
     double index = 0.0;
 
     unsigned int j;
-    for(unsigned int i = 0; i < 20; i++) {
+    unsigned int iterations = density * width * height;
+    for(unsigned int i = 0; i < iterations; i++) {
         j = unif(re);
 
         Point* new_p = new Point(list.at(j).transform_point(*p));

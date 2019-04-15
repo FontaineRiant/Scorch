@@ -7,6 +7,12 @@
 
 class Color {
 public:
+    static Color BLACK;
+    static Color WHITE;
+    static Color RED;
+    static Color GREEN;
+    static Color BLUE;
+
     /**
      * Constructor for an RGB color, each arg must be between 0 and 1 (inclusive)
      * @param r
@@ -45,5 +51,6 @@ public:
 private:
     const double r, g, b;
 };
+
 
 #endif //CFLAMEMAKER_COLOR_H

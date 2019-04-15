@@ -6,7 +6,12 @@
 #include <cmath>
 #include "Color.h"
 
-static const Color BLACK = Color(0, 0, 0);
+Color Color::BLACK(0, 0, 0);
+Color Color::WHITE(1, 1, 1);
+Color Color::RED(1, 0, 0);
+Color Color::GREEN(0, 1, 0);
+Color Color::BLUE(0, 0, 1);
+
 
 Color::Color(const double r, const double g, const double b) : r(r), g(g), b(b) {
     if(r < 0 || r > 1 || g < 0 || g > 1 || b < 0 || b > 1) {
@@ -45,3 +50,4 @@ int Color::srgb_encode(double v, int max) {
         return (int) (max * (1.055 * pow(v, 1 / 2.4) - 0.055));
     }
 }
+
