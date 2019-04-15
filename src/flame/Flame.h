@@ -14,7 +14,7 @@ public:
 
     Flame(const std::vector<FlameTransformation>& transformations);
 
-    FlameAccumulator compute(const Rectangle& frame, unsigned int width, unsigned int height, unsigned int density) const;
+    FlameAccumulator compute(const Rectangle& frame, dim2 dims, unsigned int density) const;
 
 private:
     double c(unsigned int j) const;

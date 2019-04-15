@@ -11,8 +11,9 @@ using namespace std;
 int main() {
 
     const string FILENAME = "flame";
-    const int IMAGE_WIDTH = 1920; // Définit les dimensions de l'image
-    const int IMAGE_HEIGHT = 1200;
+    dim2 dims;
+    dims.width  = 1920; // Définit les dimensions de l'image
+    dims.height = 1200;
     const Point CENTER_POINT(Point(-0.4, 0.0));
     const Rectangle RECTANGLE(CENTER_POINT, 5.0, 4.0); // flame dimensions
 
@@ -29,11 +30,24 @@ int main() {
 
     p1[0] = 1;
     p1[1] = 0.1;
+    p1[2] = 0;
+    p1[3] = 0;
+    p1[4] = 0;
+    p1[5] = 0;
 
+    p2[0] = 0;
+    p2[1] = 0;
+    p2[2] = 0;
+    p2[3] = 0;
     p2[4] = 0.8;
     p2[5] = 1;
 
     p3[0] = 1;
+    p3[1] = 0;
+    p3[2] = 0;
+    p3[3] = 0;
+    p3[4] = 0;
+    p3[5] = 0;
 
     list.emplace_back(FlameTransformation(AffineTransformation(-0.4113504,
                                                               -0.7124804, -0.4, 0.7124795, -0.4113508, 0.8), p1));
@@ -47,7 +61,7 @@ int main() {
 
 
 //    double startTime = System.currentTimeMillis();
-    FlameAccumulator fractal = flame.compute(RECTANGLE, IMAGE_WIDTH, IMAGE_HEIGHT, 50);
+    FlameAccumulator fractal = flame.compute(RECTANGLE, dims, 50);
 //    double completionTime = System.currentTimeMillis() - startTime;
 
 //    System.out.println(FILENAME + " : greyscale flame computed in " + completionTime + " ms");
@@ -63,12 +77,12 @@ int main() {
     Color background(0, 0, 0);
 
     prints << "P3" << endl;
-    prints << IMAGE_WIDTH << " " << IMAGE_HEIGHT << endl;
+    prints << dims.width << " " << dims.height << endl;
     prints << "255" << endl;
 
 
-    for (int i = 0; i < IMAGE_HEIGHT; i++) {
-        for (int j = 0; j < IMAGE_WIDTH; j++) {
+    for (int i = 0; i < dims.height; i++) {
+        for (int j = 0; j < dims.width; j++) {
             Color color = fractal.color(palette, background, j, fractal.get_height() - 1 - i);
 
             prints << Color::srgb_encode(color.get_r(), 255) << " "

@@ -6,13 +6,20 @@
 #include <cmath>
 #include "FlameAccumulator.h"
 
-FlameAccumulator::FlameAccumulator(dim2 dims, unsigned int **hit_count,
-                                   double **color_index_sum) {
-    this->hit_count[dims.width][dims.height];
-    this->color_index_sum[dims.width][dims.height];
-    this->dims.width = dims.width;
-    this->dims.height = dims.height;
-    this->max_hit_count = 0;
+FlameAccumulator::FlameAccumulator(dim2 dims, const Rectangle& frame) : frame(frame), dims(dims), max_hit_count(0) {
+    if (dims.width < 0 || dims.height < 0) {
+        throw std::invalid_argument("FlameAccumulator : height and width must be strictly positive");
+    }
+
+    hit_count = new unsigned int*[dims.width];
+    for(unsigned int i = 0; i < dims.width; i++) {
+        hit_count[i] = new unsigned int[dims.height];
+    }
+
+    color_index_sum = new double*[dims.width];
+    for(unsigned int i = 0; i < dims.width; i++) {
+        color_index_sum[i] = new double[dims.height];
+    }
 
     for (unsigned int i = 0; i < dims.width; i++) {
         for (unsigned int j = 0; j < dims.height; j++) {
@@ -25,6 +32,19 @@ FlameAccumulator::FlameAccumulator(dim2 dims, unsigned int **hit_count,
         }
     }
 }
+
+FlameAccumulator::~FlameAccumulator() {
+    for(unsigned int i = 0; i < dims.width; i++) {
+        delete hit_count[i];
+    }
+    delete hit_count;
+
+    for(unsigned int i = 0; i < dims.width; i++) {
+        delete color_index_sum[i];
+    }
+    delete color_index_sum;
+}
+
 
 double FlameAccumulator::intensity(unsigned int x, unsigned int y) const {
     if (x < 0 || x >= dims.width) {
@@ -63,33 +83,12 @@ const Color FlameAccumulator::color(const Palette &palette, const Color &backgro
     }
 }
 
-FlameAccumulator::Builder::Builder(const Rectangle &frame, unsigned int width, unsigned int height)
-        : height(height), width(width), frame(frame) {
-    if (width < 0 || height < 0) {
-        throw std::invalid_argument("FlameAccumulator::Builder : height and width must be strictly positive");
-    }
-
-    is_hit = new unsigned int*[width];
-    for(unsigned int i = 0; i < width; i++) {
-        is_hit[i] = new unsigned int[height];
-    }
-
-    color_index[width][height];
-}
-
-void FlameAccumulator::Builder::hit(const Point &p, double index) {
+void FlameAccumulator::hit(const Point &p, double index) {
     if(frame.contains(p)) {
-        unsigned int x = (unsigned int) ((p.get_x() - frame.left()) / (frame.get_width() / width));
-        unsigned int y = (unsigned int) ((p.get_y() - frame.bottom()) / (frame.get_height() / height));
+        unsigned int x = (p.get_x() - frame.left()) / (frame.get_width() / dims.width);
+        unsigned int y = (p.get_y() - frame.bottom()) / (frame.get_height() / dims.height);
 
-        is_hit[x][y]++;
-        color_index[x][y] += index;
+        hit_count[x][y]++;
+        color_index_sum[x][y] += index;
     }
-}
-
-FlameAccumulator FlameAccumulator::Builder::build() {
-    dim2 dim;
-    dim.width = width;
-    dim.height = height;
-    return FlameAccumulator(dim, is_hit, color_index);
 }

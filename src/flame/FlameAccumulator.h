@@ -18,22 +18,10 @@ typedef struct {
 class FlameAccumulator {
 public:
 
-    class Builder {
-    private:
-        Rectangle frame;
-        unsigned int width;
-        unsigned int height;
-        unsigned int **is_hit;
-        double **color_index;
+    FlameAccumulator(dim2 dims, const Rectangle& frame);
+    ~FlameAccumulator();
 
-    public:
-        Builder(const Rectangle &frame, unsigned int width, unsigned int height);
-
-        void hit(const Point &p, double index);
-
-        FlameAccumulator build();
-    };
-
+    void hit(const Point &p, double index);
 
     /**
      * @return x dimension of the accumulator
@@ -64,9 +52,7 @@ public:
     const Color color(const Palette &palette, const Color &background, unsigned int x, unsigned int y) const;
 
 private:
-    FlameAccumulator(dim2 dims, unsigned int **hit_count,
-                     double **color_index_sum);
-
+    Rectangle frame;
     unsigned int **hit_count;
     double **color_index_sum;
     dim2 dims;
