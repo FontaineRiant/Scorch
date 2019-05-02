@@ -7,8 +7,8 @@
 #include "Flame.h"
 
 Flame::Flame(const std::vector<FlameTransformation> &transformations) {
-    for(unsigned int i = 0; i < transformations.size(); i++) {
-        this->list.push_back(transformations.at(i));
+    for(const auto & transformation : transformations) {
+        this->list.push_back(transformation);
     }
 }
 
@@ -16,7 +16,7 @@ FlameAccumulator Flame::compute(const Rectangle &frame, dim2 dims, unsigned int 
     Point* p = new Point(0, 0);
 
     std::uniform_int_distribution<unsigned int> unif(0, list.size() - 1);
-    std::default_random_engine re(time(nullptr));
+    std::default_random_engine re(2048);
     FlameAccumulator building(dims, frame);
     double index = 0.0;
 
@@ -37,6 +37,7 @@ FlameAccumulator Flame::compute(const Rectangle &frame, dim2 dims, unsigned int 
 
     delete p;
 
+    building.compute_max_hit_count();
     return building;
 }
 

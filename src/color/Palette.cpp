@@ -12,13 +12,13 @@ const Color Palette::color_for_index(double index) const {
     double indexn = index * (palette.size() - 1);
 
     // La couleur non-mélangée se trouvant à gauche de l'index dans la palette.
-    int couleurinf = (int) floor(indexn);
+    unsigned int couleurinf = floor(indexn);
 
     // La couleur non-mélangée se trouvant à droite de l'index dans la palette.
-    int couleursup = (int) ceil(indexn);
+    unsigned int couleursup = ceil(indexn);
 
     if (couleurinf == couleursup) {
-        return palette.at((int) indexn);
+        return palette.at((unsigned int) indexn);
     } else {
         return palette.at(couleurinf).mix_with(palette.at(couleursup), indexn - couleurinf);
     }

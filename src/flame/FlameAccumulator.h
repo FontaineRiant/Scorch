@@ -23,6 +23,8 @@ public:
 
     void hit(const Point &p, double index);
 
+    void compute_max_hit_count();
+
     /**
      * @return x dimension of the accumulator
      */

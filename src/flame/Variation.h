@@ -15,7 +15,7 @@ class Variation : public Transformation {
 public:
     const std::string &get_name() const;
 
-    int get_index() const;
+    unsigned int get_index() const;
 
     static std::vector<Variation*> ALL_VARIATIONS;
 

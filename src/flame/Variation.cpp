@@ -14,7 +14,7 @@ const std::string& Variation::get_name() const {
     return name;
 }
 
-int Variation::get_index() const {
+unsigned int Variation::get_index() const {
     return index;
 }
 
@@ -43,7 +43,7 @@ public:
         return Point(p.get_x() / (p.r() * p.r()), p.get_y() / (p.r() * p.r()));
     }
 
-    SphericalVariation() : Variation(2, "SphericalVariation") {}
+    SphericalVariation() : Variation(2, "Spherical") {}
 } spherical_variation;
 
 class SwirlVariation : public Variation {

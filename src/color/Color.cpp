@@ -39,15 +39,15 @@ const Color Color::mix_with(const Color &other, double p) const {
     return Color(r - r * p + other.r * p, g - g * p + other.g * p, b - p * b + other.b * p);
 }
 
-int Color::packed_rgb() const {
+unsigned int Color::packed_rgb() const {
     return srgb_encode(r, 255 * 255) + srgb_encode(g, 255) + srgb_encode(b, 1);
 }
 
-int Color::srgb_encode(double v, int max) {
+unsigned int Color::srgb_encode(double v, unsigned int max) {
     if (v <= 0.0031308) {
-        return (int) (max * 12.92 * v);
+        return (max * 12.92 * v);
     } else {
-        return (int) (max * (1.055 * pow(v, 1 / 2.4) - 0.055));
+        return (max * (1.055 * pow(v, 1 / 2.4) - 0.055));
     }
 }
 

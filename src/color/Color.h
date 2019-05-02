@@ -38,7 +38,7 @@ public:
      * Used in GUI
      * @return rgb code as an int
      */
-    int packed_rgb() const;
+    unsigned int packed_rgb() const;
 
     /**
      * Gamma-encode an input color value given a max value
@@ -46,7 +46,7 @@ public:
      * @param max max value
      * @return new value
      */
-    static int srgb_encode(double v, int max);
+    static unsigned int srgb_encode(double v, unsigned int max);
 
 private:
     const double r, g, b;

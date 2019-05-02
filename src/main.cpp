@@ -60,13 +60,8 @@ int main() {
     Flame flame(list);
 
 
-//    double startTime = System.currentTimeMillis();
     FlameAccumulator fractal = flame.compute(RECTANGLE, dims, 50);
-//    double completionTime = System.currentTimeMillis() - startTime;
 
-//    System.out.println(FILENAME + " : greyscale flame computed in " + completionTime + " ms");
-//
-//    startTime = System.currentTimeMillis();
 
     vector<Color> colorList;
     colorList.emplace_back(Color::RED);
@@ -81,8 +76,8 @@ int main() {
     prints << "255" << endl;
 
 
-    for (int i = 0; i < dims.height; i++) {
-        for (int j = 0; j < dims.width; j++) {
+    for (unsigned int i = 0; i < dims.height; i++) {
+        for (unsigned int j = 0; j < dims.width; j++) {
             Color color = fractal.color(palette, background, j, fractal.get_height() - 1 - i);
 
             prints << Color::srgb_encode(color.get_r(), 255) << " "
@@ -93,7 +88,4 @@ int main() {
     }
     prints.close();
 
-//    completionTime = System.currentTimeMillis() - startTime;
-//
-//    System.out.println(FILENAME + " : flame colorized in " + completionTime + " ms");
 }

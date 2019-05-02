@@ -1,8 +1,6 @@
 # Scorch
 Flame fractal image generator
 
-Status : unfinished, not functionnal
-
 # Description
 ![](https://i.imgur.com/8X9rPrY.jpg)
 
@@ -24,4 +22,4 @@ Complete rewriting as I would have done it in C++ without instructions from a te
 - use of intel intrinsics if possible
 - multithreading with OpenMP
 
-- feature : teach an AI how to make fractals that look better
+- feature : teach an AI to make fractals that look good
