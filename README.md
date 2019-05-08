@@ -19,7 +19,6 @@ Complete rewriting as I would have done it in C++ without instructions from a te
 
 # Future improvements
 - image smoothing
-- generate png instead of ppm
 - tune compiler options
 - optimize data structures
 - reduce branch misprediction (loop unfolding, "if" removal, ...)
