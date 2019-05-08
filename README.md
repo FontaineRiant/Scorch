@@ -16,6 +16,8 @@ First port from java to C++. Everything was translated to be as close as possibl
 Complete rewriting as I would have done it in C++ without instructions from a teacher.
 
 # Future improvements
+- image smoothing
+- generate png instead of ppm
 - tune compiler options
 - optimize data structures
 - reduce branch misprediction (loop unfolding, "if" removal, ...)
