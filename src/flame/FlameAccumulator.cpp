@@ -27,8 +27,8 @@ FlameAccumulator::FlameAccumulator(dim2 dims, const Rectangle &frame) : frame(fr
 
 FlameAccumulator::~FlameAccumulator() {
     for (unsigned int i = 0; i < dims.width; i++) {
-        delete hit_count[i];
-        delete color_index_sum[i];
+        delete[] hit_count[i];
+        delete[] color_index_sum[i];
     }
 
     delete hit_count;

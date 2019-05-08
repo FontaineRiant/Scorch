@@ -114,6 +114,31 @@ int main() {
     Palette palette = InterpolatedPalette(colorList);
     Color background(0, 0, 0);
 
+    // build rgb matrix
+    double ***bitmap = new double **[dims.height];
+    for (unsigned int i = 0; i < dims.height; i++) {
+        bitmap[i] = new double *[dims.width];
+
+        for (unsigned int j = 0; j < dims.width; j++) {
+            bitmap[i][j] = new double[3];
+
+            Color color = fractal.color(palette, background, j, i);
+
+            bitmap[i][j][0] = color.get_r();
+            bitmap[i][j][1] = color.get_g();
+            bitmap[i][j][2] = color.get_b();
+        }
+    }
+
+    // blur pattern
+    const unsigned int FILTER_WIDTH = 3;
+    const unsigned int FILTER_HEIGHT = 3;
+    double filter[FILTER_HEIGHT][FILTER_WIDTH] = {
+            1/32., 2/32., 1/32.,
+            2/32., 20/32., 2/32.,
+            1/32., 2/32., 1/32.,
+    };
+
     // print to file
     FILE *f;
     f = fopen(FILENAME, "wb");
@@ -123,12 +148,27 @@ int main() {
 
     for (unsigned int i = 0; i < dims.height; i++) {
         for (unsigned int j = 0; j < dims.width; j++) {
-            Color color = fractal.color(palette, background, j, i);
+            double red = 0;
+            double green = 0;
+            double blue = 0;
 
-            unsigned char r = Color::srgb_encode(color.get_r(), 255);
-            unsigned char g = Color::srgb_encode(color.get_g(), 255);
-            unsigned char b = Color::srgb_encode(color.get_b(), 255);
+            // blur
+            // multiply every value of the filter with corresponding image pixel
+            for (int filterY = 0; filterY < FILTER_HEIGHT; filterY++) {
+                for (int filterX = 0; filterX < FILTER_WIDTH; filterX++) {
+                    unsigned int imageX = (j - FILTER_WIDTH / 2 + filterX + dims.width) % dims.width;
+                    unsigned int imageY = (i - FILTER_HEIGHT / 2 + filterY + dims.height) % dims.height;
+                    red += bitmap[imageY][imageX][0] * filter[filterY][filterX];
+                    green += bitmap[imageY][imageX][1] * filter[filterY][filterX];
+                    blue += bitmap[imageY][imageX][2] * filter[filterY][filterX];
+                }
+            }
 
+            unsigned char r = Color::srgb_encode(red, 255);
+            unsigned char g = Color::srgb_encode(green, 255);
+            unsigned char b = Color::srgb_encode(blue, 255);
+
+            // write in the standard bmp order (BGR instead of RGB)
             fwrite(&b, 1, 1, f);
             fwrite(&g, 1, 1, f);
             fwrite(&r, 1, 1, f);
@@ -138,4 +178,13 @@ int main() {
     }
 
     fclose(f);
+
+    // free memory
+    for (unsigned int i = 0; i < dims.height; i++) {
+        for (unsigned int j = 0; j < dims.width; j++) {
+            delete[] bitmap[i][j];
+        }
+        delete[] bitmap[i];
+    }
+    delete[] bitmap;
 }
