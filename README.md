@@ -12,6 +12,8 @@ Each branch contains a different level of optimization.
 ### master
 First port from java to C++. Everything was translated to be as close as possible to the original java code. Hence the sometimes weird class structure emphasized by the fact that this was a school excercise with the goal to use builders, interfaces, inheritance, anonymous classes, immutability, ...
 
+Performance-wise it's very close to 100% slower than the original java code.
+
 ### (WIP) refactored
 Complete rewriting as I would have done it in C++ without instructions from a teacher.
 
