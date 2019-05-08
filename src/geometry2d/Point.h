@@ -16,12 +16,6 @@ public:
 
     /**
      *
-     * @return polar coordinate r
-     */
-    double theta() const;
-
-    /**
-     *
      * @return polar coordinate theta
      */
     double r() const;

@@ -17,10 +17,6 @@ double Point::get_y() const {
     return y;
 }
 
-double Point::theta() const {
-    return atan2(x, y);
-}
-
 double Point::r() const {
     return sqrt(x * x + y * y);
 }
