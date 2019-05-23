@@ -24,10 +24,11 @@ Complete refactoring of java-style. The goal is to clean the code of dirty worka
 - image smoothing
 
 # Future improvements
+- parse fractal parameters from the command line
 - tune compiler options
 - optimize data structures
 - reduce branch misprediction (loop unfolding, "if" removal, ...)
 - use of intel intrinsics if possible
 - multithreading with OpenMP
 
-- feature : teach an AI to make fractals that look good
+- feature : train an AI to make fractals that look good
